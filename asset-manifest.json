@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/nafais-al-muhadirat/static/css/main.d90692da.css",
+    "main.js": "/nafais-al-muhadirat/static/js/main.1aa343ae.js",
+    "index.html": "/nafais-al-muhadirat/index.html",
+    "main.d90692da.css.map": "/nafais-al-muhadirat/static/css/main.d90692da.css.map",
+    "main.1aa343ae.js.map": "/nafais-al-muhadirat/static/js/main.1aa343ae.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d90692da.css",
+    "static/js/main.1aa343ae.js"
+  ]
+}
