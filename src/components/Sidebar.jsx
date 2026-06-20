@@ -61,7 +61,7 @@ export default function Sidebar({ chapters, activeIndex, userProgress, onSelect,
                 <span
                   className="font-mono-jet text-[10px] font-bold px-2 py-0.5 rounded shrink-0 mt-0.5"
                   style={{
-                    background: isActive ? 'rgba(200,160,60,0.15)' : 'var(--bg-overlay)',
+                    background: isActive ? 'rgba(43,242,140,0.14)' : 'var(--bg-overlay)',
                     color: isActive ? 'var(--gold-bright)' : 'var(--text-muted)',
                     border: `1px solid ${isActive ? 'var(--border-gold)' : 'var(--border-subtle)'}`,
                   }}
@@ -80,8 +80,8 @@ export default function Sidebar({ chapters, activeIndex, userProgress, onSelect,
                     {isDone && <CheckCircle size={10} style={{ color: 'var(--emerald-bright)', flexShrink: 0 }} />}
                   </div>
                   <p
-                    className="text-[10px] font-amiri truncate"
-                    style={{ color: 'var(--text-muted)', direction: 'rtl' }}
+                    className="text-[12px] font-amiri font-medium truncate"
+                    style={{ color: 'var(--text-primary)', direction: 'rtl', lineHeight: '1.3' }}
                   >
                     {ch.arabicTitle}
                   </p>

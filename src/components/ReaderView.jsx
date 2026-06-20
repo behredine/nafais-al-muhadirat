@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Layout, FileText, Type, Bookmark, Share2, Video,
-  ChevronLeft, ChevronRight, BookOpen, RotateCcw
+  ChevronLeft, ChevronRight, BookOpen
 } from 'lucide-react';
 
 export default function ReaderView({ chapter, chapterIndex, totalChapters, onPrev, onNext }) {
@@ -14,12 +14,12 @@ export default function ReaderView({ chapter, chapterIndex, totalChapters, onPre
       {/* Sub-header */}
       <div
         className="px-6 py-4 border-b flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0"
-        style={{ borderColor: 'var(--border-subtle)', background: 'rgba(22,16,9,0.6)' }}
+        style={{ borderColor: 'var(--border-subtle)', background: 'var(--bg-surface)' }}
       >
         <div>
           <span
-            className="text-[10px] font-amiri block mb-1 tracking-wide"
-            style={{ color: 'var(--gold-mid)', direction: 'rtl' }}
+            className="text-base font-amiri block mb-1 tracking-wide"
+            style={{ color: 'var(--gold-mid)', direction: 'rtl', lineHeight: '1.25' }}
           >
             {chapter.arabicTitle}
           </span>
@@ -36,6 +36,22 @@ export default function ReaderView({ chapter, chapterIndex, totalChapters, onPre
 
         {/* Controls row */}
         <div className="flex flex-wrap items-center gap-2 shrink-0">
+          <button
+            onClick={() => document.getElementById('chapter-video')?.scrollIntoView({ behavior: 'smooth' })}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-semibold transition-all hover:scale-105"
+            style={{
+              background: 'rgba(239,68,68,0.12)',
+              color: '#ffffff',
+              border: '1px solid rgba(239,68,68,0.25)',
+              boxShadow: '0 0 12px rgba(239,68,68,0.08)',
+            }}
+          >
+            <div className="flex items-center justify-center w-3 h-3 rounded-full" style={{ background: '#ef4444' }}>
+              <div style={{ width: '0px', height: '0px', borderLeft: '2.5px solid transparent', borderRight: '0px solid transparent', borderTop: '1.5px solid white', marginLeft: '0.5px' }} />
+            </div>
+            Watch video
+          </button>
+
           {/* Layout toggle */}
           <div
             className="flex p-1 rounded-lg gap-1"
@@ -51,7 +67,7 @@ export default function ReaderView({ chapter, chapterIndex, totalChapters, onPre
                 onClick={() => setLayout(key)}
                 className="flex items-center gap-1 px-2.5 py-1.5 rounded text-[10px] font-semibold transition-all"
                 style={{
-                  background: layout === key ? 'rgba(200,160,60,0.15)' : 'transparent',
+                  background: layout === key ? 'rgba(43,242,140,0.14)' : 'transparent',
                   color: layout === key ? 'var(--gold-bright)' : 'var(--text-muted)',
                   border: layout === key ? '1px solid var(--border-gold)' : '1px solid transparent',
                 }}
@@ -85,13 +101,13 @@ export default function ReaderView({ chapter, chapterIndex, totalChapters, onPre
 
       {/* Main reading area */}
       <div className="flex-grow overflow-y-auto p-4 md:p-6">
-        <div className={`flex gap-5 h-full ${layout === 'split' ? 'flex-col lg:flex-row' : 'flex-col'}`}>
+        <div className={`flex gap-5 ${layout === 'split' ? 'flex-col lg:flex-row' : 'flex-col'}`}>
 
           {/* Arabic panel */}
           {(layout === 'split' || layout === 'arabic') && (
             <div
-              className="flex-1 rounded-2xl p-6 md:p-8 flex flex-col border-ornament-gold animate-fade-in-up"
-              style={{ background: 'rgba(22,16,9,0.7)', position: 'relative' }}
+              className="rounded-2xl p-6 md:p-8 flex flex-col border-ornament-gold animate-fade-in-up lg:flex-1"
+              style={{ background: 'var(--bg-raised)', position: 'relative' }}
             >
               <div
                 className="absolute top-3 right-3 px-2.5 py-1 rounded-full font-mono-jet text-[9px] tracking-widest uppercase"
@@ -108,7 +124,7 @@ export default function ReaderView({ chapter, chapterIndex, totalChapters, onPre
               </div>
 
               <p
-                className="arabic-text flex-grow leading-[2.5]"
+                className="arabic-text leading-[2.5]"
                 style={{ fontSize: `${fontSize + 5}px`, color: 'var(--text-primary)' }}
               >
                 {chapter.arabicText}
@@ -136,8 +152,8 @@ export default function ReaderView({ chapter, chapterIndex, totalChapters, onPre
           {/* English panel */}
           {(layout === 'split' || layout === 'english') && (
             <div
-              className="flex-1 rounded-2xl p-6 md:p-8 flex flex-col border-ornament animate-fade-in-up"
-              style={{ background: 'rgba(22,16,9,0.7)', animationDelay: '0.1s' }}
+              className="rounded-2xl p-6 md:p-8 flex flex-col border-ornament animate-fade-in-up lg:flex-1"
+              style={{ background: 'var(--bg-raised)', animationDelay: '0.1s' }}
             >
               <div
                 className="absolute top-3 left-3 px-2.5 py-1 rounded-full font-mono-jet text-[9px] tracking-widest uppercase"
@@ -146,11 +162,11 @@ export default function ReaderView({ chapter, chapterIndex, totalChapters, onPre
                 Sharh & Translation
               </div>
 
-              <div className="mt-8 space-y-5 flex-grow">
+              <div className="mt-8 space-y-5">
                 {/* Literal translation */}
                 <div
                   className="p-4 rounded-xl"
-                  style={{ borderLeft: '2px solid var(--gold-mid)', paddingLeft: '16px', background: 'rgba(200,160,60,0.04)' }}
+                  style={{ borderLeft: '2px solid var(--gold-mid)', paddingLeft: '16px', background: 'rgba(43,242,140,0.04)' }}
                 >
                   <h5
                     className="font-cinzel text-[9px] uppercase tracking-[0.2em] mb-2"
@@ -191,8 +207,9 @@ export default function ReaderView({ chapter, chapterIndex, totalChapters, onPre
 
         {/* Video Section */}
         <div
+          id="chapter-video"
           className="mt-6 rounded-2xl overflow-hidden border-ornament"
-          style={{ background: 'rgba(14,11,7,0.8)' }}
+          style={{ background: 'var(--bg-surface)' }}
         >
           <div
             className="px-5 py-4 flex items-center gap-3 border-b"
@@ -200,7 +217,7 @@ export default function ReaderView({ chapter, chapterIndex, totalChapters, onPre
           >
             <div
               className="p-2 rounded-lg"
-              style={{ background: 'rgba(200,160,60,0.1)', border: '1px solid var(--border-gold)' }}
+              style={{ background: 'rgba(43,242,140,0.10)', border: '1px solid var(--border-gold)' }}
             >
               <Video size={14} style={{ color: 'var(--gold-mid)' }} />
             </div>
@@ -233,7 +250,7 @@ export default function ReaderView({ chapter, chapterIndex, totalChapters, onPre
       <div
         className="absolute bottom-20 left-1/2 -translate-x-1/2 flex items-center gap-3 px-4 py-2 rounded-full z-10"
         style={{
-          background: 'rgba(14,11,7,0.9)',
+          background: 'rgba(0,0,0,0.9)',
           backdropFilter: 'blur(12px)',
           border: '1px solid var(--border-gold)',
           boxShadow: '0 4px 24px rgba(0,0,0,0.4)',

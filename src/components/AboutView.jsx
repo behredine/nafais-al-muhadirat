@@ -31,7 +31,7 @@ export default function AboutView() {
       {/* Historical overview card */}
       <div
         className="rounded-2xl p-7 space-y-4 border-ornament-gold"
-        style={{ background: 'rgba(22,16,9,0.75)' }}
+        style={{ background: 'var(--bg-surface)' }}
       >
         <h4 className="font-cinzel text-sm tracking-wider" style={{ color: 'var(--gold-mid)' }}>
           Historical Overview
@@ -55,7 +55,7 @@ export default function AboutView() {
             <div
               className="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center"
               style={{
-                background: 'rgba(200,160,60,0.1)',
+                background: 'rgba(43,242,140,0.12)',
                 border: '1px solid var(--border-gold)',
                 color: 'var(--gold-mid)',
               }}

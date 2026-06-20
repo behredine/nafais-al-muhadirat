@@ -1,10 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Play, Pause, Volume2, VolumeX, BookOpen } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, BookOpen, Download } from 'lucide-react';
 
 export default function AudioPlayer({ chapter }) {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
 
@@ -50,6 +51,40 @@ export default function AudioPlayer({ chapter }) {
     }
   };
 
+  const getFileNameFromUrl = (url) => {
+    try {
+      const path = new URL(url).pathname;
+      const name = path.substring(path.lastIndexOf('/') + 1);
+      return decodeURIComponent(name || 'audio-download.ogg');
+    } catch {
+      return 'audio-download.ogg';
+    }
+  };
+
+  const handleDownload = async () => {
+    if (!chapter?.audioUrl || isDownloading) return;
+    setIsDownloading(true);
+
+    try {
+      const response = await fetch(chapter.audioUrl, { mode: 'cors' });
+      if (!response.ok) throw new Error('Download failed');
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = getFileNameFromUrl(chapter.audioUrl);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      window.open(chapter.audioUrl, '_blank', 'noopener');
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
   return (
     <>
       <audio
@@ -69,7 +104,7 @@ export default function AudioPlayer({ chapter }) {
       <div
         className="fixed bottom-0 left-0 right-0 z-40"
         style={{
-          background: 'rgba(14,11,7,0.95)',
+          background: 'rgba(0,0,0,0.92)',
           backdropFilter: 'blur(20px)',
           borderTop: '1px solid var(--border-subtle)',
         }}
@@ -134,7 +169,21 @@ export default function AudioPlayer({ chapter }) {
           </div>
 
           {/* Controls */}
-          <div className="flex items-center justify-end gap-4 w-full md:w-1/3">
+          <div className="flex items-center justify-end gap-3 w-full md:w-1/3">
+            <button
+              onClick={handleDownload}
+              disabled={isDownloading}
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-[11px] font-semibold transition-all disabled:opacity-50"
+              style={{
+                background: 'linear-gradient(135deg, var(--gold-muted), var(--gold-mid))',
+                color: '#000000',
+                border: '1px solid rgba(43,242,140,0.25)',
+              }}
+            >
+              <Download size={14} />
+              {isDownloading ? 'Downloading...' : 'Download'}
+            </button>
+
             <button onClick={toggleMute} style={{ color: isMuted ? 'var(--text-faint)' : 'var(--text-muted)' }}
               className="transition-colors hover:text-[var(--gold-mid)]">
               {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
@@ -145,7 +194,7 @@ export default function AudioPlayer({ chapter }) {
               className="w-10 h-10 rounded-full flex items-center justify-center transition-all active:scale-95"
               style={{
                 background: 'linear-gradient(135deg, var(--gold-muted), var(--gold-mid))',
-                boxShadow: '0 0 20px rgba(200,160,60,0.25)',
+                boxShadow: '0 0 20px rgba(43,242,140,0.22)',
               }}
             >
               {isPlaying

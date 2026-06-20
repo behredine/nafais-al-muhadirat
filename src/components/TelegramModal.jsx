@@ -21,7 +21,7 @@ export default function TelegramModal({ onClose }) {
           <div className="flex items-center gap-3">
             <div
               className="w-9 h-9 rounded-xl flex items-center justify-center"
-              style={{ background: 'rgba(200,160,60,0.1)', border: '1px solid var(--border-gold)', color: 'var(--gold-mid)' }}
+              style={{ background: 'rgba(43,242,140,0.12)', border: '1px solid var(--border-gold)', color: 'var(--gold-mid)' }}
             >
               <MessageSquare size={16} />
             </div>
@@ -71,7 +71,7 @@ export default function TelegramModal({ onClose }) {
               style={{
                 background: 'linear-gradient(135deg, var(--gold-muted), var(--gold-mid))',
                 color: 'var(--bg-deep)',
-                boxShadow: '0 4px 20px rgba(200,160,60,0.2)',
+                boxShadow: '0 4px 20px rgba(43,242,140,0.18)',
               }}
             >
               <span>Connect with Bot Portal</span>

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Menu, MessageSquare } from 'lucide-react';
 
 import { CHAPTERS_DATA } from './data/chapters';
@@ -14,6 +14,12 @@ export default function App() {
   const [activeTab, setActiveTab]   = useState('reader');
   const [isSidebarOpen, setSidebar] = useState(true);
   const [isModalOpen, setModal]     = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      setSidebar(false);
+    }
+  }, []);
 
   const [userProgress, setUserProgress] = useState(() => {
     try {
@@ -38,6 +44,9 @@ export default function App() {
   const handleSelectChapter = (idx) => {
     setActiveChapterIndex(idx);
     setActiveTab('reader');
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      setSidebar(false);
+    }
   };
 
   const tabs = [
@@ -54,18 +63,18 @@ export default function App() {
       {/* ── Ambient background glows ─────────────────────────────────── */}
       <div
         className="pointer-events-none fixed top-0 left-1/4 w-[600px] h-[600px] rounded-full"
-        style={{ background: 'radial-gradient(ellipse, rgba(180,130,40,0.05) 0%, transparent 65%)', filter: 'blur(40px)', zIndex: 0 }}
+        style={{ background: 'radial-gradient(ellipse, rgba(43,242,140,0.16) 0%, transparent 65%)', filter: 'blur(40px)', zIndex: 0 }}
       />
       <div
         className="pointer-events-none fixed bottom-20 right-0 w-[500px] h-[500px] rounded-full"
-        style={{ background: 'radial-gradient(ellipse, rgba(40,100,70,0.05) 0%, transparent 65%)', filter: 'blur(40px)', zIndex: 0 }}
+        style={{ background: 'radial-gradient(ellipse, rgba(36,218,192,0.12) 0%, transparent 65%)', filter: 'blur(40px)', zIndex: 0 }}
       />
 
       {/* ── Header ───────────────────────────────────────────────────── */}
       <header
         className="sticky top-0 z-40 px-4 md:px-6 py-3 flex items-center justify-between gap-3"
         style={{
-          background: 'rgba(10,8,5,0.92)',
+          background: 'rgba(0,0,0,0.94)',
           backdropFilter: 'blur(20px)',
           borderBottom: '1px solid var(--border-subtle)',
         }}
@@ -75,7 +84,11 @@ export default function App() {
           <button
             onClick={() => setSidebar(v => !v)}
             className="p-2 rounded-lg transition-colors"
-            style={{ color: 'var(--gold-mid)' }}
+            style={{
+              color: 'var(--gold-mid)',
+              background: isSidebarOpen ? 'rgba(43,242,140,0.12)' : 'transparent',
+              border: isSidebarOpen ? '1px solid var(--border-gold)' : '1px solid transparent',
+            }}
             title="Toggle Chapter Navigation"
           >
             <Menu size={18} />
@@ -109,7 +122,7 @@ export default function App() {
               onClick={() => setActiveTab(key)}
               className={`px-4 py-1.5 rounded-lg font-cinzel text-[11px] tracking-wide transition-all ${activeTab === key ? 'tab-active-bar' : ''}`}
               style={{
-                background: activeTab === key ? 'rgba(200,160,60,0.12)' : 'transparent',
+                background: activeTab === key ? 'rgba(43,242,140,0.14)' : 'transparent',
                 color: activeTab === key ? 'var(--gold-bright)' : 'var(--text-muted)',
                 border: activeTab === key ? '1px solid var(--border-gold)' : '1px solid transparent',
               }}
@@ -182,7 +195,7 @@ export default function App() {
                 onClick={() => setActiveTab(key)}
                 className="flex-1 py-1.5 rounded-lg font-cinzel text-[10px] transition-all"
                 style={{
-                  background: activeTab === key ? 'rgba(200,160,60,0.12)' : 'transparent',
+                  background: activeTab === key ? 'rgba(43,242,140,0.14)' : 'transparent',
                   color: activeTab === key ? 'var(--gold-bright)' : 'var(--text-muted)',
                   border: activeTab === key ? '1px solid var(--border-gold)' : '1px solid transparent',
                 }}

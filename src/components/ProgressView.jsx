@@ -10,7 +10,7 @@ export default function ProgressView({ chapters, userProgress, onToggle }) {
       {/* Header */}
       <div
         className="rounded-2xl p-6 border-ornament-gold"
-        style={{ background: 'rgba(22,16,9,0.75)' }}
+        style={{ background: 'var(--bg-surface)' }}
       >
         <div className="flex items-center gap-2 mb-3">
           <Sparkles size={16} style={{ color: 'var(--gold-mid)' }} />
@@ -33,7 +33,7 @@ export default function ProgressView({ chapters, userProgress, onToggle }) {
               style={{
                 width: `${pct}%`,
                 background: 'linear-gradient(90deg, var(--gold-muted), var(--gold-bright))',
-                boxShadow: '0 0 12px rgba(200,160,60,0.3)',
+                boxShadow: '0 0 12px rgba(43,242,140,0.26)',
               }}
             />
           </div>
@@ -82,7 +82,7 @@ export default function ProgressView({ chapters, userProgress, onToggle }) {
                 onClick={() => onToggle(ch.id)}
                 className="p-2 rounded-lg transition-all ml-3 shrink-0"
                 style={{
-                  background: isDone ? 'rgba(200,160,60,0.1)' : 'var(--bg-overlay)',
+                  background: isDone ? 'rgba(43,242,140,0.12)' : 'var(--bg-overlay)',
                   color: isDone ? 'var(--gold-bright)' : 'var(--text-faint)',
                   border: `1px solid ${isDone ? 'var(--border-gold)' : 'var(--border-subtle)'}`,
                 }}
