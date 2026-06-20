@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/nafais-al-muhadirat/static/css/main.d90692da.css",
-    "main.js": "/nafais-al-muhadirat/static/js/main.1aa343ae.js",
+    "main.css": "/nafais-al-muhadirat/static/css/main.9fc65ba6.css",
+    "main.js": "/nafais-al-muhadirat/static/js/main.8fef5916.js",
     "index.html": "/nafais-al-muhadirat/index.html",
-    "main.d90692da.css.map": "/nafais-al-muhadirat/static/css/main.d90692da.css.map",
-    "main.1aa343ae.js.map": "/nafais-al-muhadirat/static/js/main.1aa343ae.js.map"
+    "main.9fc65ba6.css.map": "/nafais-al-muhadirat/static/css/main.9fc65ba6.css.map",
+    "main.8fef5916.js.map": "/nafais-al-muhadirat/static/js/main.8fef5916.js.map"
   },
   "entrypoints": [
-    "static/css/main.d90692da.css",
-    "static/js/main.1aa343ae.js"
+    "static/css/main.9fc65ba6.css",
+    "static/js/main.8fef5916.js"
   ]
 }
